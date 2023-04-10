@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".MyApplication"
@@ -42,14 +43,29 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <intent-filter android:label="@string/chat_app_deep_link">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.chatapp.com"
+                    android:scheme="http" />
+                <data
+                    android:host="www.chatapp.com"
+                    android:scheme="https" />
+            </intent-filter>
         </activity>
+
         <service
             android:name=".service.NotificationService"
+            android:exported="false"
             android:label="@string/notification_service_name"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
-            android:exported="false">
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
-                <action android:name="android.service.notification.NotificationListenerService"/>
+                <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
 
@@ -65,5 +81,16 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
 
+        <receiver android:name=".data.receiver.MyBroadcastReceiver" />
+
+        <service android:name=".service.MyService" />
+
+        <!--        <receiver-->
+        <!--            android:name=".data.receiver.MyBroadcastReceiver"-->
+        <!--            android:exported="true">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.intent.action.AIRPLANE_MODE" />-->
+        <!--            </intent-filter>-->
+        <!--        </receiver>-->
     </application>
 </manifest>

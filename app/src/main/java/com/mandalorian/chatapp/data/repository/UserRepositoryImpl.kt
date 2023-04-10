@@ -22,3 +22,5 @@ class UserRepositoryImpl(private val ref: CollectionReference): UserRepository {
         return res.toObject(User::class.java)
     }
 }
+
+// Model, View, ViewModel

@@ -52,6 +52,16 @@
                     android:textAllCaps="false"
                     app:icon="@drawable/ic_add"
                     app:iconTint="@color/white" />
+
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                    android:id="@+id/btnStop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:backgroundTint="@color/orange"
+                    android:textAllCaps="false"
+                    app:icon="@drawable/ic_close"
+                    app:iconTint="@color/white" />
             </LinearLayout>
 
         </LinearLayout>

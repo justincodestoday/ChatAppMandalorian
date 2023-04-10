@@ -1,6 +1,7 @@
 package com.mandalorian.chatapp.ui.presentation.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
@@ -8,9 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mandalorian.chatapp.R
 import com.mandalorian.chatapp.data.model.User
 import com.mandalorian.chatapp.databinding.FragmentHomeBinding
+import com.mandalorian.chatapp.ui.MainActivity
 import com.mandalorian.chatapp.ui.presentation.base.BaseFragment
 import com.mandalorian.chatapp.ui.presentation.adapters.ChatAdapter
 import com.mandalorian.chatapp.ui.presentation.home.viewModel.HomeViewModelImpl
+import com.mandalorian.chatapp.utils.Constants
 import com.mandalorian.chatapp.utils.NotificationUtils
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,6 +32,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 //                val action = HomeFragmentDirections.actionHomeFragmentToMessageFragment()
 //                NavHostFragment.findNavController(this@HomeFragment).navigate(action)
 //            }
+            btnAdd.setOnClickListener {
+                Log.d(Constants.DEBUG, "Service started")
+                (requireActivity() as MainActivity).startService()
+            }
+            btnStop.setOnClickListener {
+                Log.d(Constants.DEBUG, "Service stopped")
+                (requireActivity() as MainActivity).stopService()
+            }
             btnCreateNotification.setOnClickListener {
                 NotificationUtils.createNotification(
                     requireContext(),

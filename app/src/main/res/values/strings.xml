@@ -15,4 +15,5 @@
     <string name="interstitial_ad_unit_id">YOUR_INTERSTITIAL_AD_UNIT_ID</string>
     <string name="notification_service_name">Notification Service</string>
     <string name="default_notification_channel_id">chat_app_default_notification_channel_id</string>
+    <string name="chat_app_deep_link">ChatApp DeepLink</string>
 </resources>

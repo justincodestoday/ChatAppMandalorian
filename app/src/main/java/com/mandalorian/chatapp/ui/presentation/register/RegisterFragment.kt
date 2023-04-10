@@ -25,7 +25,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     override fun onBindData(view: View) {
         super.onBindData(view)
         lifecycleScope.launch {
-            viewModel.signupFinish.collect {
+            viewModel.signUpComplete.collect {
                 val action = RegisterFragmentDirections.toLogin()
                 navController.navigate(action)
             }

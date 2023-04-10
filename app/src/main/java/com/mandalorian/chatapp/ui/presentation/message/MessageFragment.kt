@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.core.view.inputmethod.InputConnectionCompat
 import androidx.core.view.inputmethod.InputContentInfoCompat
@@ -19,6 +20,7 @@ import com.mandalorian.chatapp.databinding.FragmentMessageBinding
 import com.mandalorian.chatapp.ui.presentation.adapters.MessageAdapter
 import com.mandalorian.chatapp.ui.presentation.base.BaseFragment
 import com.mandalorian.chatapp.ui.presentation.message.viewModel.MessageViewModel
+import com.mandalorian.chatapp.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -50,8 +52,10 @@ class MessageFragment : BaseFragment<FragmentMessageBinding>() {
 
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
-        setupAdapter()
         binding?.viewModel = viewModel
+        setupAdapter()
+
+        Log.d("UID", args.id)
 
         binding?.etMessage?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {

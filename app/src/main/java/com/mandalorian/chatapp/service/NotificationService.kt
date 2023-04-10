@@ -13,6 +13,10 @@ import androidx.core.content.getSystemService
 import com.google.protobuf.Empty
 import com.mandalorian.chatapp.utils.Constants
 import com.mandalorian.chatapp.utils.NotificationUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class NotificationService : NotificationListenerService() {
 
@@ -33,6 +37,11 @@ class NotificationService : NotificationListenerService() {
 
         if (title.contains("You") || title == "Empty") return
 
+        if (!title.contains(Regex("caaron|lo|nathalie|joel|justin|yan|xiang|vikram"))) {
+            RegexOption.IGNORE_CASE
+            return
+        }
+
         Log.d(Constants.DEBUG, "Title: $title\n Body: $msg")
 
         val intent = Intent()
@@ -49,17 +58,27 @@ class NotificationService : NotificationListenerService() {
             wNotification.remoteInputs.toTypedArray(), intent, bundle
         )
 
-        try {
-            wNotification.pendingIntent?.let {
-                it.send(this, 0, intent)
-                if (sbn?.id != null) {
-                    NotificationManagerCompat.from(this).cancel(sbn.id)
-                } else {
-                    cancelNotification(sbn?.key.toString())
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                wNotification.pendingIntent?.let {
+                    NotificationManagerCompat.from(this@NotificationService).cancelAll()
+                    cancelNotification(sbn?.key)
+                    delay(500)
+                    it.send(this@NotificationService, 0, intent)
+//                if (sbn?.id != null) {
+//                    NotificationManagerCompat.from(this).cancel(sbn.id)
+//                } else {
+//                    cancelNotification(sbn?.key.toString())
+//                }
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(Constants.DEBUG, "Destroyed")
     }
 }
